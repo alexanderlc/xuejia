@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/default_bg"
+    tools:context=".MainActivity" >
+
+    <RelativeLayout
+        android:id="@+id/layout_webview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <include
+            android:id="@+id/layout_title"
+            android:layout_alignParentTop="true"
+            layout="@layout/title" />
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/layout_title" >
+        </WebView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_splashscreen"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/default_bg"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/layout_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/startup"
+            android:layout_centerInParent="true"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
