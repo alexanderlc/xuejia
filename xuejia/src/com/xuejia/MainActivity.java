@@ -1,6 +1,9 @@
 package com.xuejia;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -36,6 +39,7 @@ public class MainActivity extends Activity {
 	private ProgressBar mProgressBar;
 	private static final int STOPSPLASH = 0;
 	private static final int CONNECTION_FALIED = -1;
+	private static final int OVERDUE=-2;
 	// time in milliseconds
 	//private static final long SPLASHTIME = 1000;
 
@@ -50,6 +54,16 @@ public class MainActivity extends Activity {
 			case CONNECTION_FALIED:
 				new AlertDialog.Builder(mThis).setTitle(mThis.getString(R.string.app_name))
 				.setMessage("无法连接服务器，请检查您的网络设置并重新启动程序。").setPositiveButton("确定",
+						new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int whichButton) {
+						finish();
+					}
+				}).show();
+				break;
+			case  OVERDUE:
+				new AlertDialog.Builder(mThis).setTitle(mThis.getString(R.string.app_name))
+				.setMessage("演示程序已经过期,请到官网下载正式版").setPositiveButton("确定",
 						new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int whichButton) {
@@ -137,9 +151,7 @@ public class MainActivity extends Activity {
 		mWebView.loadUrl(mURL);
 	}
 
-	private void splash(){
-
-	}
+	
 	@Override
 	public void onBackPressed(){
 		if(mWebView.canGoBack()){
@@ -182,7 +194,16 @@ public class MainActivity extends Activity {
 			public void run() {
 				Message msg = new Message();
 				try {
-
+					Calendar calendar = Calendar.getInstance();
+					Date now = calendar.getTime();					
+					SimpleDateFormat DateFormat = new SimpleDateFormat(
+							"yyyy-MM-dd"); 
+					Date overdueDt=DateFormat.parse("2013-07-25");
+					if(now.after(overdueDt)){
+						msg.what = OVERDUE;
+						splashHandler.sendMessage(msg);
+						return;
+					}
 					if(NetworkUtils.getActiveNetworkName(mThis)==null){
 						//无网络
 						msg.what = CONNECTION_FALIED;
