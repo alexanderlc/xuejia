@@ -97,6 +97,7 @@ public class MainActivity extends Activity {
 	private void loadSplash(){
 		String colorStr=PreferencesManager.getBgColor(mThis);
 		String img=PreferencesManager.getBgImage(mThis);
+		if(img.equals(""))return;
 		File imgFile=new File(img);
 		if(imgFile.exists()){
 			Drawable d=Drawable.createFromPath(img);
@@ -127,7 +128,7 @@ public class MainActivity extends Activity {
 			}
 
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
-				mProgressBar.setVisibility(View.VISIBLE);
+				//mProgressBar.setVisibility(View.VISIBLE);
 			}
 
 			public void onReceivedError(WebView view, int errorCode,
@@ -140,7 +141,7 @@ public class MainActivity extends Activity {
 			public void onReceivedTitle(WebView view, String title) { 
 			} 
 			public void onProgressChanged(WebView view, int progress) {
-				mProgressBar.setProgress(progress);
+				//mProgressBar.setProgress(progress);
 			}
 			public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
 				result.confirm();
@@ -151,7 +152,7 @@ public class MainActivity extends Activity {
 		mWebView.loadUrl(mURL);
 	}
 
-	
+
 	@Override
 	public void onBackPressed(){
 		if(mWebView.canGoBack()){
@@ -194,16 +195,16 @@ public class MainActivity extends Activity {
 			public void run() {
 				Message msg = new Message();
 				try {
-					Calendar calendar = Calendar.getInstance();
-					Date now = calendar.getTime();					
-					SimpleDateFormat DateFormat = new SimpleDateFormat(
-							"yyyy-MM-dd"); 
-					Date overdueDt=DateFormat.parse("2013-07-25");
-					if(now.after(overdueDt)){
-						msg.what = OVERDUE;
-						splashHandler.sendMessage(msg);
-						return;
-					}
+//					Calendar calendar = Calendar.getInstance();
+//					Date now = calendar.getTime();					
+//					SimpleDateFormat DateFormat = new SimpleDateFormat(
+//							"yyyy-MM-dd"); 
+//					Date overdueDt=DateFormat.parse("2013-07-25");
+//					if(now.after(overdueDt)){
+//						msg.what = OVERDUE;
+//						splashHandler.sendMessage(msg);
+//						return;
+//					}
 					if(NetworkUtils.getActiveNetworkName(mThis)==null){
 						//ŒﬁÕ¯¬Á
 						msg.what = CONNECTION_FALIED;
@@ -217,26 +218,32 @@ public class MainActivity extends Activity {
 							splashHandler.sendMessage(msg);
 							StartConfig sc=ConfigXMLParser.parse(xml);
 							if(sc!=null){
+
 								String url=sc.ImageURL;
-								String fileName=NetworkUtils.getFileName(url);
-								File root = Environment.getExternalStorageDirectory();
-								File gbDir = new File(root, "/xuejia/");
-								if (!gbDir.exists()) {
-									gbDir.mkdir();
-								}
-								String savepath=gbDir.getAbsolutePath()+"/"+fileName;
-								File imgFile=new File(savepath);
-								if(!imgFile.exists()){
-									//œ¬‘ÿ
-									if(NetworkUtils.downloadAndSave(mThis, url, savepath)){
+								if(url.equals("")){
+									PreferencesManager.setBgImage(mThis,"");
+									PreferencesManager.setBgColor(mThis, "");
+								}else{
+									String fileName=NetworkUtils.getFileName(url);
+									File root = Environment.getExternalStorageDirectory();
+									File gbDir = new File(root, "/xuejia/");
+									if (!gbDir.exists()) {
+										gbDir.mkdir();
+									}
+									String savepath=gbDir.getAbsolutePath()+"/"+fileName;
+									File imgFile=new File(savepath);
+									if(!imgFile.exists()){
+										//œ¬‘ÿ
+										if(NetworkUtils.downloadAndSave(mThis, url, savepath)){
+											PreferencesManager.setBgImage(mThis,savepath);
+											PreferencesManager.setBgColor(mThis, sc.BackgroundColor);
+										}else{
+											savepath="";
+										}
+									}else{
 										PreferencesManager.setBgImage(mThis,savepath);
 										PreferencesManager.setBgColor(mThis, sc.BackgroundColor);
-									}else{
-										savepath="";
 									}
-								}else{
-									PreferencesManager.setBgImage(mThis,savepath);
-									PreferencesManager.setBgColor(mThis, sc.BackgroundColor);
 								}
 							}//id sc
 						}else{

@@ -19,7 +19,7 @@ public class PreferencesManager {
 		}
 	}
 	public static String getBgColor(Context context){
-		String defaultColor="#FAF5DF";
+		String defaultColor="";
 		try {	
 
 			PreferenceManager.setDefaultValues(context, R.xml.preferences, false);
