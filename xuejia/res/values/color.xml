@@ -2,5 +2,10 @@
 <resources>
 
     <color name="default_bg">#FAF5DF</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <!-- 白色 -->
+    <color name="ivory">#FFFFF0</color>
+    <!-- 象牙色 -->
 
 </resources>

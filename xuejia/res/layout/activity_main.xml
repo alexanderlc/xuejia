@@ -1,33 +1,49 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context=".MainActivity" >
 
-    <RelativeLayout
+    <!-- android:background="@color/default_bg" -->
+
+    <LinearLayout
         android:id="@+id/layout_webview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-
-        <include
-            android:id="@+id/layout_title"
-            android:layout_alignParentTop="true"
-            layout="@layout/title" />
+        android:layout_height="fill_parent"
+        android:background="@android:color/transparent"
+        android:orientation="vertical" >
 
         <WebView
             android:id="@+id/webview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@+id/layout_title" >
+            android:layout_weight="1"
+            android:fadingEdge="none"
+            android:fadingEdgeLength="0dip"
+            android:scrollbars="none" >
         </WebView>
-    </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/layout_splashscreen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        <include
+            android:id="@+id/layout_bottombar"
+            android:layout_weight="1"
+            layout="@layout/bottom_bar" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_splashscreen"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/default_bg"
+        android:visibility="visible" >
+
+        <LinearLayout
+            android:id="@+id/layout_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/startup"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

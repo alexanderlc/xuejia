@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">雪茄超市</string>
     <string name="url_start_config">http://m.xuejia.net.cn/startconfig.xml</string>
     <string name="url_home1">http://m.baidu.com/</string>
-   <string name="url_home">http://m.xuejia.net.cn/</string>
+    <string name="url_login">http://m.xuejia.net.cn/login.aspx</string>
+    <string name="url_logout">http://m.xuejia.net.cn/logout.aspx</string>
+    <string name="url_home">http://m.xuejia.net.cn/</string>
+    <string name="url_search">http://m.xuejia.net.cn/listproduct.aspx</string>
+    <string name="url_category">http://m.xuejia.net.cn/category.aspx</string>
+    <string name="url_shoppingcart">http://m.xuejia.net.cn/shoppingcart.aspx</string>
+    <string name="url_user">http://m.xuejia.net.cn/user/userdefault.aspx</string>
+
 </resources>
